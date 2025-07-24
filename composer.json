@@ -1,0 +1,58 @@
+{
+  "name": "mirxan/postman-exporter",
+  "description": "Laravel API to Postman Collection exporter with comment-driven customization",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/mirxan/laravel-postman-exporter",
+  "keywords": [
+    "laravel",
+    "postman",
+    "exporter",
+    "collection",
+    "api",
+    "json",
+    "generator"
+  ],
+  "authors": [
+    {
+      "name": "Muhammadamin Nematov",
+      "email": "mirxan085@gmail.com"
+    }
+  ],
+  "support": {
+    "email": "mirxan085@gmail.com",
+    "issues": "https://github.com/mirxan/laravel-postman-exporter/issues",
+    "source": "https://github.com/mirxan/laravel-postman-exporter"
+  },
+  "require": {
+    "php": "^8.0 || ^8.1 || ^8.2 || ^8.3 || ^8.4",
+    "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "laravel/pint": "^1.0",
+    "nunomaduro/larastan": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mirxan\\PostmanExporter\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mirxan\\PostmanExporter\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mirxan\\PostmanExporter\\PostmanServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
