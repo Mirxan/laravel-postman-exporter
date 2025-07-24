@@ -67,7 +67,7 @@ return [
     | This section defines how the Postman environment file will be structured.
     */
     'environment' => [
-        'name' => env('APP_NAME', 'Laravel') . ' Environment',
+        'name' => env('APP_ENV', 'Local') . ' Environment',
         'file_name' => 'environment.json',
         'variables' => [
             [
@@ -78,11 +78,6 @@ return [
             [
                 'key' => 'token',
                 'value' => '',
-                'enabled' => true,
-            ],
-            [
-                'key' => 'api_key',
-                'value' => 'something',
                 'enabled' => true,
             ]
         ],

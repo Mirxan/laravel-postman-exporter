@@ -93,9 +93,9 @@ return [
     |--------------------------------------------------------------------------
     | Default Content Type
     |--------------------------------------------------------------------------
-    | Options: form-data, json, raw (currently only form-data is supported)
+    | Options: form-data, urlencoded, multipart, json, raw = json
     */
-    'content_type' => 'form-data',
+    'content_type' => 'json',
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
                 'key' => 'token',
                 'value' => '',
                 'enabled' => true,
-            ],
+            ]
         ],
     ],
 
