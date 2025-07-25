@@ -230,6 +230,7 @@ This allows you to easily manage API variables like `APP_URL`, `TOKEN`, etc., wi
 
 ```bash
 /**
+ * @no-auth If this is set, the request will not require authentication.
  * @description Login endpoint for users
  * @header Authorization: Bearer {{TOKEN}}
  * @response 200 - Successful login
