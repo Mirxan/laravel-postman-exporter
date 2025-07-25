@@ -183,7 +183,7 @@ class PostmanJsonBuilder
         
         return [[
             'name' => 'Example',
-            'originalRequest' => [],
+            // 'originalRequest' => [],
             'status' => 'OK',
             'code' => 200,
             'body' => $response,

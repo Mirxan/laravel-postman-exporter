@@ -162,6 +162,17 @@ php artisan export:postman
 ## storage/app/postman/
 You can import the `.json` file into Postman to test your Laravel API endpoints.
 
+## 🔄 Optional: Sync with Postman API
+If you want to automatically sync your collection and environment with Postman (via their API), run the command with the --sync option:
+
+```bash
+php artisan export:postman --sync
+```
+This will:
+
+✅ Upload or update your collection on your Postman account
+✅ Upload or update your environment file
+
 🌍 Exporting Postman Environment
 This package also exports a ready-to-use Postman environment file:
 

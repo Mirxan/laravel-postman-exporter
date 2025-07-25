@@ -18,14 +18,14 @@ return [
     | The path format where the Postman collection will be saved.
     | You can use {timestamp} and {app} placeholders.
     */
-    'path' => 'postman/{app}-collection-{timestamp}.json',
+    'path' => 'postman/{app}-collection.json',
 
     /*
     |--------------------------------------------------------------------------
     | Postman Collection Name
     |--------------------------------------------------------------------------
     */
-    'collection_name' => env('APP_NAME', 'Laravel') . ' API',
+    'collection_name' => env('APP_NAME', 'Laravel') . now()->toString().' API',
 
     /*
     |--------------------------------------------------------------------------
@@ -33,6 +33,34 @@ return [
     |--------------------------------------------------------------------------
     */
     'collection_schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Collection ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_collection_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Envirenment ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_envirenment_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Workspace ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_workspace_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman API KEY
+    |--------------------------------------------------------------------------
+    */
+    'postman_api_key' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +95,7 @@ return [
     | This section defines how the Postman environment file will be structured.
     */
     'environment' => [
-        'name' => env('APP_ENV', 'Local') . ' Environment',
+        'name' => env('APP_ENV', 'local') . 'env',
         'file_name' => 'environment.json',
         'variables' => [
             [
@@ -78,6 +106,11 @@ return [
             [
                 'key' => 'token',
                 'value' => '',
+                'enabled' => true,
+            ],
+            [
+                'key' => 'api_key',
+                'value' => 'something',
                 'enabled' => true,
             ]
         ],
