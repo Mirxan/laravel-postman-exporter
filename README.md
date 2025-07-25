@@ -55,14 +55,14 @@ return [
     | The path format where the Postman collection will be saved.
     | You can use {timestamp} and {app} placeholders.
     */
-    'path' => 'postman/{app}-collection-{timestamp}.json',
+    'path' => 'postman/{app}-collection.json',
 
     /*
     |--------------------------------------------------------------------------
     | Postman Collection Name
     |--------------------------------------------------------------------------
     */
-    'collection_name' => env('APP_NAME', 'Laravel') . ' API',
+    'collection_name' => env('APP_NAME', 'Laravel') . now()->toString() . ' API',
 
     /*
     |--------------------------------------------------------------------------
@@ -70,6 +70,34 @@ return [
     |--------------------------------------------------------------------------
     */
     'collection_schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Collection ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_collection_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Environment ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_envirenment_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman Workspace ID
+    |--------------------------------------------------------------------------
+    */
+    'postman_workspace_id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Postman API Key
+    |--------------------------------------------------------------------------
+    */
+    'postman_api_key' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -99,12 +127,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Middleware Filtering
+    |--------------------------------------------------------------------------
+    | Only include routes that have at least one of the following middleware.
+    | Leave this empty to include all routes without filtering.
+    */
+    'included_middlewares' => [
+        'api', // Example: 'auth', 'verified', 'throttle:api'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Environment File Configuration
     |--------------------------------------------------------------------------
     | This section defines how the Postman environment file will be structured.
     */
     'environment' => [
-        'name' => env('APP_NAME', 'Laravel') . ' Environment',
+        'name' => env('APP_ENV', 'local') . 'env',
         'file_name' => 'environment.json',
         'variables' => [
             [
@@ -115,6 +154,11 @@ return [
             [
                 'key' => 'token',
                 'value' => '',
+                'enabled' => true,
+            ],
+            [
+                'key' => 'api_key',
+                'value' => 'something',
                 'enabled' => true,
             ]
         ],
@@ -129,7 +173,7 @@ return [
     */
     'folders' => [
 
-        // Auth folder with global headers and test scripts
+        // API folder with global headers and test scripts
         'api' => [
             'level' => 2,
             'isGlobal' => true,
@@ -146,7 +190,7 @@ return [
                     ],
                 ],
             ],
-            'prerequest' => "console.log('Sending request to auth endpoint...');",
+            'prerequest' => "console.log('Sending request to API endpoint...');",
             'test' => "pm.test('Status is 200', function () {\n    pm.response.to.have.status(200);\n});",
         ],
     ],
@@ -188,8 +232,6 @@ This allows you to easily manage API variables like `APP_URL`, `TOKEN`, etc., wi
 /**
  * @description Login endpoint for users
  * @header Authorization: Bearer {{TOKEN}}
- * @param email: string - User's email address
- * @param password: string - User's password
  * @response 200 - Successful login
  * @response 422 - Validation error
  */

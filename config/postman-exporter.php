@@ -25,7 +25,7 @@ return [
     | Postman Collection Name
     |--------------------------------------------------------------------------
     */
-    'collection_name' => env('APP_NAME', 'Laravel') . now()->toString().' API',
+    'collection_name' => env('APP_NAME', 'Laravel') . now()->toString() . ' API',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Postman Envirenment ID
+    | Postman Environment ID
     |--------------------------------------------------------------------------
     */
     'postman_envirenment_id' => '',
@@ -57,7 +57,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Postman API KEY
+    | Postman API Key
     |--------------------------------------------------------------------------
     */
     'postman_api_key' => '',
@@ -87,6 +87,17 @@ return [
     | Options: form-data, urlencoded, multipart, json, raw = json
     */
     'content_type' => 'json',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware Filtering
+    |--------------------------------------------------------------------------
+    | Only include routes that have at least one of the following middleware.
+    | Leave this empty to include all routes without filtering.
+    */
+    'included_middlewares' => [
+        'api', // Example: 'auth', 'verified', 'throttle:api'
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -125,7 +136,7 @@ return [
     */
     'folders' => [
 
-        // Auth folder with global headers and test scripts
+        // API folder with global headers and test scripts
         'api' => [
             'level' => 2,
             'isGlobal' => true,
@@ -142,7 +153,7 @@ return [
                     ],
                 ],
             ],
-            'prerequest' => "console.log('Sending request to auth endpoint...');",
+            'prerequest' => "console.log('Sending request to API endpoint...');",
             'test' => "pm.test('Status is 200', function () {\n    pm.response.to.have.status(200);\n});",
         ],
     ],

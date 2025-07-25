@@ -14,10 +14,22 @@ class PostmanRouteParser
     public function getRoutes(): array
     {
         $filtered = [];
+        $includedMiddlewares = config('postman-exporter.included_middlewares', []);
 
         foreach (Route::getRoutes() as $route) {
-            if (!in_array('GET', $route->methods()) && !in_array('POST', $route->methods())) continue;
-            if (!in_array('api', $route->middleware())) continue;
+            if (!in_array('GET', $route->methods()) && !in_array('POST', $route->methods())) {
+                continue;
+            }
+
+            if (!empty($includedMiddlewares)) {
+                $routeMiddlewares = method_exists($route, 'gatherMiddleware')
+                    ? $route->gatherMiddleware()
+                    : $route->middleware();
+
+                if (empty(array_intersect($includedMiddlewares, $routeMiddlewares))) {
+                    continue;
+                }
+            }
 
             $action = $route->getActionName();
             if (!Str::contains($action, '@')) continue;
@@ -32,9 +44,8 @@ class PostmanRouteParser
                 foreach ($reflection->getParameters() as $param) {
                     $type = $param->getType();
                     if (
-                        !$type || 
-                        ($type instanceof ReflectionNamedType &&
-                         $type->getName() === Request::class)
+                        !$type ||
+                        ($type instanceof ReflectionNamedType && $type->getName() === Request::class)
                     ) {
                         $skip = true;
                         break;
@@ -60,4 +71,5 @@ class PostmanRouteParser
 
         return $filtered;
     }
+
 }
