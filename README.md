@@ -1,6 +1,6 @@
 # Laravel Postman Exporter 📨
 
-A developer-friendly Laravel package that **automatically generates a complete Postman collection** from your API routes using PHPDoc-style comments.  
+A developer-friendly Laravel package that **automatically generates a complete Postman collection** from your routes using PHPDoc-style comments or global configuration.
 It supports response/parameter detection, headers, bearer authentication, resource structure detection, folder-based grouping — and even Postman environment export!
 
 ---
