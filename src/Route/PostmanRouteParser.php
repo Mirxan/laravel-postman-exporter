@@ -43,10 +43,7 @@ class PostmanRouteParser
                 $skip = false;
                 foreach ($reflection->getParameters() as $param) {
                     $type = $param->getType();
-                    if (
-                        !$type ||
-                        ($type instanceof ReflectionNamedType && $type->getName() === Request::class)
-                    ) {
+                    if (!$type) {
                         $skip = true;
                         break;
                     }
