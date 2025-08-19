@@ -14,18 +14,6 @@ composer require mirxan/postman-exporter
 ```
 If you're installing from a GitHub repo:
 
-// composer.json
-```bash
-"repositories": [
-  {
-    "type": "vcs",
-    "url": "https://github.com/mirxan/laravel-postman-exporter"
-  }
-],
-"require": {
-  "mirxan/postman-exporter": "^1.0"
-}
-```
 ## 🔧 Publish Configuration
 Run the following command to publish the configuration file:
 
