@@ -163,7 +163,9 @@ return [
     */
     'folders' => [
 
-        // API folder with global headers and test scripts
+        // Folder keys should correspond to the starting segment of your route prefixes
+
+        // Example for 'api' prefix: folder with global headers and test scripts
         'api' => [
             'level' => 2,
             'isGlobal' => true,
@@ -182,6 +184,26 @@ return [
             ],
             'prerequest' => "console.log('Sending request to API endpoint...');",
             'test' => "pm.test('Status is 200', function () {\n    pm.response.to.have.status(200);\n});",
+        ],
+
+        // For all prefixes not present in folders, use these settings
+        'default' => [
+            'level' => 2,
+            'isGlobal' => true,
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+            'auth' => [
+                'type' => 'bearer',
+                'bearer' => [
+                    [
+                        'key' => 'token',
+                        'value' => '{{token}}',
+                    ],
+                ],
+            ],
+            'prerequest' => "console.log('Default folder prerequest script');",
+            'test' => "pm.test('Default status is 200', function () {\n    pm.response.to.have.status(200);\n});",
         ],
     ],
 ];

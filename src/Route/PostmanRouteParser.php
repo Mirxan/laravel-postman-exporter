@@ -5,8 +5,6 @@ namespace Mirxan\PostmanExporter\Route;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use ReflectionMethod;
-use ReflectionNamedType;
-use Illuminate\Http\Request;
 use Mirxan\PostmanExporter\Helpers\ResponseExtractor;
 
 class PostmanRouteParser

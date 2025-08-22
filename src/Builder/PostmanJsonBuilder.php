@@ -82,7 +82,12 @@ class PostmanJsonBuilder
     protected function getFolderConfig(array $route, array $folderConfigs): ?array
     {
         $folderKey = $this->detectFolderKey($route);
-        return $folderKey && isset($folderConfigs[$folderKey]) ? $folderConfigs[$folderKey] : null;
+
+        if ($folderKey && isset($folderConfigs[$folderKey])) {
+            return $folderConfigs[$folderKey];
+        }
+
+        return $folderConfigs['default'] ?? null;
     }
 
     protected function buildHeaders(array $route, ?array $folderConfig): array
@@ -230,10 +235,12 @@ class PostmanJsonBuilder
     {
         $folderKey = $this->detectFolderKey($route);
         $folderConfig = $this->getFolderConfig($route, $config['folders']);
-        
-        if ($folderKey && $folderConfig) {
+
+        if ($folderConfig) {
+            $keyToUse = $folderKey ?? 'default';
             $level = $folderConfig['level'] ?? 1;
-            $this->assignToNestedFolder($folders, $route, $item, $folderKey, $level, $folderConfig);
+
+            $this->assignToNestedFolder($folders, $route, $item, $keyToUse, $level, $folderConfig);
         } else {
             $folders[] = $item;
         }
@@ -526,8 +533,15 @@ class PostmanJsonBuilder
 
     protected function detectFolderKey(array $route): ?string
     {
-        $segments = explode('/', $route['uri']);
-        return $segments[0] ?? null;
+        $uri = $route['uri'] ?? '';
+
+        foreach (array_keys(config('postman-exporter.folders')) as $folderKey) {
+            if ($folderKey !== 'default' && str_starts_with($uri, $folderKey)) {
+                return $folderKey;
+            }
+        }
+
+        return null;
     }
 
     protected function extractNoAuth(string $doc): bool

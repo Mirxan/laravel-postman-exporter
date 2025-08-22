@@ -36,7 +36,7 @@ class ExportPostmanCommand extends Command
             $this->createOrUpdateCollection($collectionJson);
             $this->createOrUpdateEnvirenment($environmentData);
         }else{
-            $this->info("✅ Postman collection exported to: storage/app/{$collectionPath}");
+            $this->info("✅ Postman collection and environment exported to: storage/app/{$collectionPath}");
         }
     }
 
