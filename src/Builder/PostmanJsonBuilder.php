@@ -4,6 +4,7 @@ namespace Mirxan\PostmanExporter\Builder;
 
 use Illuminate\Routing\Route;
 use Illuminate\Foundation\Http\FormRequest;
+use Mirxan\PostmanExporter\Helpers\ResponseExtractor;
 use ReflectionMethod;
 use ReflectionClass;
 use Throwable;
@@ -181,14 +182,24 @@ class PostmanJsonBuilder
     protected function buildResponse(array $route): array
     {
         $response = $this->extractResponse($route['doc']);
-        
+
+        if (!$response) {
+            try {
+                $controller = $route['controller'];
+                $method = $route['method_name'];
+
+                $response = ResponseExtractor::guess($controller, $method);
+            } catch (\Throwable $e) {
+                $response = null;
+            }
+        }
+
         if (!$response) {
             return [];
         }
-        
+
         return [[
             'name' => 'Example',
-            // 'originalRequest' => [],
             'status' => 'OK',
             'code' => 200,
             'body' => $response,
